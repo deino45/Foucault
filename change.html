@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Temps de l'Indicatif en Français</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .bricks-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .brick {
+            width: 180px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            padding: 10px;
+        }
+        .brick:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+        }
+        #explanation {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .example {
+            font-style: italic;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+        }
+        @media (max-width: 600px) {
+            .brick {
+                width: calc(50% - 10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Les Temps de l'Indicatif en Français</h1>
+        <div class="bricks-container" id="tempsBricks"></div>
+        <div id="explanation">Cliquez sur une brique pour en savoir plus</div>
+    </div>
+
+    <script>
+        const tempsIndicatif = [
+            {
+                name: "Présent",
+                color: "#3498db",
+                description: "Le présent exprime une action qui se déroule au moment où l'on parle, une vérité générale, ou une habitude.",
+                examples: [
+                    "Je mange une pomme.",
+                    "La Terre tourne autour du Soleil.",
+                    "Il va au travail tous les jours."
+                ]
+            },
+            {
+                name: "Passé composé",
+                color: "#e74c3c",
+                description: "Le passé composé exprime une action accomplie dans le passé, souvent avec un résultat dans le présent.",
+                examples: [
+                    "J'ai mangé une pomme ce matin.",
+                    "Nous sommes allés au cinéma hier soir.",
+                    "Elle a terminé ses études l'année dernière."
+                ]
+            },
+            {
+                name: "Imparfait",
+                color: "#2ecc71",
+                description: "L'imparfait exprime une action continue ou habituelle dans le passé, ou décrit le contexte d'une autre action.",
+                examples: [
+                    "Quand j'étais enfant, j'allais souvent à la plage.",
+                    "Il pleuvait quand je suis sorti.",
+                    "Nous mangions quand le téléphone a sonné."
+                ]
+            },
+            {
+                name: "Plus-que-parfait",
+                color: "#f39c12",
+                description: "Le plus-que-parfait exprime une action passée qui s'est déroulée avant une autre action passée.",
+                examples: [
+                    "J'avais déjà mangé quand il est arrivé.",
+                    "Elle était partie quand j'ai appelé.",
+                    "Nous avions fini notre travail avant la réunion."
+                ]
+            },
+            {
+                name: "Passé simple",
+                color: "#9b59b6",
+                description: "Le passé simple exprime une action ponctuelle et terminée dans le passé, souvent utilisé dans la narration littéraire.",
+                examples: [
+                    "Il entra dans la pièce et s'assit.",
+                    "Le roi mourut et la reine pleura.",
+                    "Nous partîmes cinq cents mais par un prompt renfort, nous nous vîmes trois mille en arrivant au port."
+                ]
+            },
+            {
+                name: "Futur simple",
+                color: "#1abc9c",
+                description: "Le futur simple exprime une action qui se déroulera dans l'avenir.",
+                examples: [
+                    "Je partirai en vacances la semaine prochaine.",
+                    "Ils viendront nous rendre visite demain.",
+                    "Tu réussiras ton examen, j'en suis sûr."
+                ]
+            },
+            {
+                name: "Futur antérieur",
+                color: "#d35400",
+                description: "Le futur antérieur exprime une action future qui sera terminée avant une autre action future.",
+                examples: [
+                    "J'aurai fini mon travail quand tu arriveras.",
+                    "Quand nous serons arrivés, nous vous appellerons.",
+                    "Elle aura obtenu son diplôme avant la fin de l'année."
+                ]
+            },
+            {
+                name: "Conditionnel présent",
+                color: "#27ae60",
+                description: "Le conditionnel présent exprime une action hypothétique ou une possibilité.",
+                examples: [
+                    "J'aimerais partir en vacances.",
+                    "Si j'avais le temps, je lirais plus de livres.",
+                    "Nous pourrions aller au restaurant ce soir."
+                ]
+            }
+        ];
+
+        const bricksContainer = document.getElementById('tempsBricks');
+        const explanation = document.getElementById('explanation');
+
+        tempsIndicatif.forEach(temps => {
+            const brick = document.createElement('div');
+            brick.className = 'brick';
+            brick.style.backgroundColor = temps.color;
+            brick.textContent = temps.name;
+            brick.addEventListener('click', () => showExplanation(temps));
+            bricksContainer.appendChild(brick);
+        });
+
+        function showExplanation(temps) {
+            let examplesHtml = temps.examples.map(ex => `<li>${ex}</li>`).join('');
+            explanation.innerHTML = `
+                <h2>${temps.name}</h2>
+                <p>${temps.description}</p>
+                <div class="example">
+                    <h3>Exemples :</h3>
+                    <ul>${examplesHtml}</ul>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
